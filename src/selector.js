@@ -17,7 +17,7 @@ class Selector {
   static create(selectorString, options) {
     const result = [];
     for (let selectorAst of Array.from(slick.parse(selectorString))) {
-      for (let selectorComponent of selectorAst) {
+      for (let selectorComponent of Array.from(selectorAst)) {
         this.parsePseudoSelectors(selectorComponent);
       }
       result.push(new (this)(selectorAst, options));
