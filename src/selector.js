@@ -16,7 +16,7 @@ class Selector {
   // Returns an {Array} or {Selector} objects.
   static create(selectorString, options) {
     const result = [];
-    for (let selectorAst of slick.parse(selectorString)) {
+    for (let selectorAst of Array.from(slick.parse(selectorString))) {
       for (let selectorComponent of selectorAst) {
         this.parsePseudoSelectors(selectorComponent);
       }
