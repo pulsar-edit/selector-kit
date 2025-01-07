@@ -1,2 +1,3 @@
-module.exports =
-  {Selector: require('./selector')};
+module.exports = {
+  Selector: require("./selector.js")
+};
