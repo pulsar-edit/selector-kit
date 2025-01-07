@@ -1,18 +1,9 @@
-/*
- * decaffeinate suggestions:
- * DS101: Remove unnecessary use of Array.from
- * DS102: Remove unnecessary code created because of implicit returns
- * DS205: Consider reworking code to avoid use of IIFEs
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
- */
-let Selector;
-const slick = require('atom-slick');
+const slick = require("atom-slick");
 
 let indexCounter = 0;
 
 module.exports =
-(Selector = class Selector {
+class Selector {
   // Public: Creates one or more {Selector} objects.
   //
   // This method will return more than one `Selector` object when the string
@@ -24,35 +15,33 @@ module.exports =
   //
   // Returns an {Array} or {Selector} objects.
   static create(selectorString, options) {
-    return (() => {
-      const result = [];
-      for (let selectorAst of Array.from(slick.parse(selectorString))) {
-        for (let selectorComponent of Array.from(selectorAst)) { this.parsePseudoSelectors(selectorComponent); }
-        result.push(new (this)(selectorAst, options));
+    const result = [];
+    for (let selectorAst of Array.from(slick.parse(selectorString))) {
+      for (let selectorComponent of Array.from(selectorAst)) {
+        this.parsePseudoSelectors(selectorComponent);
       }
-      return result;
-    })();
+      result.push(new (this)(selectorAst, options));
+    }
+    return result;
   }
 
   static parsePseudoSelectors(selectorComponent) {
     if (selectorComponent.pseudos == null) { return; }
-    return (() => {
-      const result = [];
-      for (let pseudoClass of Array.from(selectorComponent.pseudos)) {
-        if (pseudoClass.name === 'not') {
-          if (selectorComponent.notSelectors == null) { selectorComponent.notSelectors = []; }
-          result.push(selectorComponent.notSelectors.push(...Array.from(this.create(pseudoClass.value) || [])));
-        } else {
-          result.push(console.warn(`Unsupported pseudo-selector: ${pseudoClass.name}`));
-        }
+    const result = [];
+    for (let pseudoClass of selectorComponent.pseudos) {
+      if (pseudoClass.name === "not") {
+        if (selectorComponent.notSelectors == null) { selectorComponent.notSelectors = []; }
+        result.push(selectorComponent.notSelectors.push(...Array.from(this.create(pseudoClass.value) || [])));
+      } else {
+        result.push(console.warn(`Unsupported pseudo-selector: ${pseudoClass.name}`));
       }
-      return result;
-    })();
+    }
+    return result;
   }
 
   constructor(selector, options) {
     this.selector = selector;
-    const priority = (options != null ? options.priority : undefined) != null ? (options != null ? options.priority : undefined) : 0;
+    const priority = options?.priority ?? 0;
     this.specificity = this.calculateSpecificity();
     this.index = priority + indexCounter++;
   }
@@ -171,4 +160,4 @@ module.exports =
 
     return (a * 100) + (b * 10) + (c * 1);
   }
-});
+}
