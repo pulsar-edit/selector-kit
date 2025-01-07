@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/atom/selector-kit.git"
+    "url": "https://github.com/pulsar-edit/selector-kit.git"
   },
   "bugs": {
-    "url": "https://github.com/atom/selector-kit/issues"
+    "url": "https://github.com/pulsar-edit/selector-kit/issues"
   },
   "licenses": [
     {
