@@ -14,12 +14,7 @@
   "bugs": {
     "url": "https://github.com/pulsar-edit/selector-kit/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/atom/selector-kit/raw/master/LICENSE.md"
-    }
-  ],
+  "licenses": "MIT",
   "dependencies": {
     "atom-slick": "^2"
   },
